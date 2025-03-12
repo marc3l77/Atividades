@@ -1,6 +1,6 @@
 CREATE TABLE restaurant_table (
     id INT PRIMARY KEY,
-    localização INT,
+    location INT,
     hourValue FLOAT
 );
 
@@ -10,26 +10,30 @@ CREATE TABLE client (
     email VARCHAR(255)
 );
 
--- Criação da tabela 'product'
+
 CREATE TABLE product (
     id INT PRIMARY KEY,
     name VARCHAR(255),
     price FLOAT
 );
 
--- Criação da tabela 'scheduling'
+
 CREATE TABLE scheduling (
     id INT PRIMARY KEY,
     tId INT,
     cId INT,
     date DATE,
-    status ENUM('reserved', 'canceled', 'open', 'payment', 'closed')
+    status VARCHAR(50),
+    FOREIGN KEY (tId) REFERENCES restaurant_table(id),
+    FOREIGN KEY (cId) REFERENCES client(id)
 );
 
--- Criação da tabela 'productsche'
+
 CREATE TABLE productsche (
     eId INT,
     pId INT,
     quantity INT,
-    PRIMARY KEY (eId, pId)
+    PRIMARY KEY (eId, pId),
+    FOREIGN KEY (eId) REFERENCES scheduling(id),
+    FOREIGN KEY (pId) REFERENCES product(id)
 );

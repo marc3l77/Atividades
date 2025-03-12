@@ -1,26 +1,15 @@
-SELECT 
-    ps.eId AS PedidoID,
-    p.name AS Produto,
-    ps.quantity AS Quantidade
-FROM 
-    productsche ps
-JOIN 
-    product p ON ps.pId = p.id
-WHERE 
-    ps.eId = <ID_DO_PEDIDO>;
+SELECT * FROM client;
 
+SELECT * FROM scheduling;
 
+SELECT * FROM product;
 
+SELECT s.id, c.name AS client_name, rt.location AS table_location, s.date, s.status
+FROM scheduling s
+JOIN client c ON s.cId = c.id
+JOIN restaurant_table rt ON s.tId = rt.id;
 
-BEGIN
-    SELECT 
-        s.id AS PedidoID,
-        s.tId AS MesaID,
-        s.cId AS ClienteID,
-        s.date AS Data,
-        s.status AS Status
-    FROM 
-        scheduling s
-    WHERE 
-        s.status = 'open';
-END;
+SELECT ps.eId, p.name AS product_name, ps.quantity
+FROM productsche ps
+JOIN product p ON ps.pId = p.id
+WHERE ps.eId = 2; 
